@@ -1,0 +1,66 @@
+#include <stdio.h>
+
+int main()
+{
+    int n, i;
+    int totalTime, totalShare = 0;
+
+    printf("Enter no. of processes: ");
+    scanf("%d", &n);
+
+    int share[n], allocation[n];
+
+    printf("Enter total CPU time: ");
+    scanf("%d", &totalTime);
+
+    printf("\nEnter share/weight for each process:\n");
+
+    for(i = 0; i < n; i++)
+    {
+        printf("P%d Share: ", i + 1);
+        scanf("%d", &share[i]);
+        totalShare += share[i];
+    }
+
+    for(i = 0; i < n; i++)
+    {
+        allocation[i] = (share[i] * totalTime) / totalShare;
+    }
+
+    printf("\nFinal CPU Allocation:\n");
+
+    for(i = 0; i < n; i++)
+    {
+        printf("P%d gets %d units of CPU time\n",
+               i + 1, allocation[i]);
+    }
+
+    printf("\nCPU Scheduling Order:\n");
+
+    for(i = 0; i < n; i++)
+    {
+        printf("P%d", i + 1);
+
+        if(i != n - 1)
+            printf(" -> ");
+    }
+
+    printf("\n\nCPU Scheduling Timeline:\n");
+
+    int currentTime = 0;
+
+    for(i = 0; i < n; i++)
+    {
+        printf("P%d ", i + 1);
+    }
+
+    printf("\n0");
+
+    for(i = 0; i < n; i++)
+    {
+        currentTime += allocation[i];
+        printf(" %d", currentTime);
+    }
+
+    return 0;
+}
